@@ -21,11 +21,6 @@ library(edgeR)
 #Copy of data, Just in case if needed to cross check
 data2use <- data2
 
-#Filtering the data
-keep <- rowSums(cpm(data2use[,1:24])>10) >= 3 #Because up-till column 24 we have 3 replicates.
-keep2 <- rowSums(cpm(data2use[,25:28])>10) >= 2 #Column 25 to 28 we have duplicates.
-data2use <- data2use[c(keep, keep2),]
-dim(data2use)
 
 # TMM Normalization
 #Creating a factorlist based on the group of samples.
@@ -35,7 +30,7 @@ tmm <- calcNormFactors(dg, method="TMM")
 tmm$samples
 tmm$counts
 norm_counts_TMM <- cpm(tmm)
-write.table(norm_counts_TMM_diff, file="TMM_norm.csv", sep=",", row.names=TRUE)
+write.table(norm_counts_TMM, file="TMM_norm.csv", sep=",", row.names=TRUE)
 
 #RLE Normalization
 
